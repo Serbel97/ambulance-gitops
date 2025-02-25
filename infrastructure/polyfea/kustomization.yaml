@@ -2,8 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - https://github.com/polyfea/manifests//controller #?ref=v1.0.0
-  - https://github.com/polyfea/manifests//md-shell # should be in the later step, we will replace it later
+#  - https://github.com/polyfea/manifests//controller #?ref=v1.0.0
+#  - https://github.com/polyfea/manifests//md-shell # should be in the later step, we will replace it later
+  - https://github.com/polyfea/manifests//gitops/fluxcd
 
-patches:
-  - path: ./patches/service.yaml
+configMapGenerator:
+- name: polyfea-shell-cfg
+  namespace: polyfea
+  options:
+    disableNameSuffixHash: true
+  literals:
+  - APP_TITLE=Nemocnica WAC
+  - SERVICE_TYPE=NodePort
+  - NODE_PORT=30331

@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - ../../../infrastructure/polyfea
+- ../../../infrastructure/fluxcd
