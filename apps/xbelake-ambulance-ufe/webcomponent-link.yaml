@@ -1,0 +1,25 @@
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: xbelake-ambulance-ufe-link
+spec:
+  microFrontend: polyfea-md-shell # referencia na microfrontend, z ktorého sa načíta element
+  element: polyfea-md-app # element, ktorý bude vložený na stránku
+  attributes: # atribúty elementu polyfea-md-app
+    - name: headline
+      value: Zoznam čakajúcich xbelake
+    - name: short-headline
+      value: Zoznam čakajúcich xbelake
+    - name: supporting-text
+      value: |
+        Spravuje zoznam pacientov čakajúcich na vyšetrenie v ambulancii
+    - name: material-icon
+      value: home_health
+    - name: href # presmerovanie po kliknutí na element polyfea-md-app
+      value: ./xbelake-ambulance-wl
+  priority: 10
+  displayRules: # pravidlá, kde sa má element vložiť v obálke
+    - anyOf:
+      - context-name: applications
+      - context-name: rail-content
+      - context-name: drawer-content

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - https://github.com/polyfea/manifests//controller #?ref=v1.0.0
+  - https://github.com/polyfea/manifests//md-shell # should be in the later step, we will replace it later
+
+patches:
+  - path: ./patches/service.yaml

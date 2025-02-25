@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: polyfea-controller
+  namespace: polyfea
+spec:
+  ports:
+  - name: webserver
+    protocol: TCP
+    port: 80
+    targetPort: http
+    nodePort: 30331
+  type: NodePort
+  
