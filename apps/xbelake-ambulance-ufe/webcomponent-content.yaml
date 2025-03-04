@@ -4,7 +4,7 @@ metadata:
   name: xbelake-ambulance-ufe-content
 spec:
   microFrontend: xbelake-ambulance-ufe
-  element: xbelake-ambulance-wl-list
+  element: xbelake-ambulance-wl-app
   displayRules:
     - allOf:
       - context-name: main-content
