@@ -5,6 +5,11 @@ metadata:
 spec:
   microFrontend: xbelake-ambulance-ufe
   element: xbelake-ambulance-wl-app
+  attributes:
+    - name: api-base
+      value: http://localhost:5001cd/api
+    - name: ambulance-id
+      value: bobulova
   displayRules:
     - allOf:
       - context-name: main-content
