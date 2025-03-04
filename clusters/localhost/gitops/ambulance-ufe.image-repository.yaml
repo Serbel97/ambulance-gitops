@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: ambulance-ufe
+  namespace: wac-hospital
+spec:
+  image: sempresionus/ambulance-ufe
+  interval: 1m0s

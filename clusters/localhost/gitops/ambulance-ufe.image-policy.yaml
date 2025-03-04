@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: ambulance-ufe
+  namespace: wac-hospital
+spec:
+  imageRepositoryRef:
+    name: ambulance-ufe # referuje ImageRepository z predchádzajúceho kroku
+  filterTags:
+    pattern: "main.*" # vyberie všetky verzie, ktoré začínajú na main- (napr. main-20240315.1200)
+  policy:
+    alphabetical:
+      order: asc

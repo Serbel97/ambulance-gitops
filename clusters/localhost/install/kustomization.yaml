@@ -2,10 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: wac-hospital  # chceme tieto objekty umiestniť do `wac-hospital` namespace
-                         # tento zapis preťaží hodnoty "namespace" vo všetkých objektoch
+# tento zapis preťaží hodnoty "namespace" vo všetkých objektoch
 labels:
-- pairs:
-    app.kubernetes.io/part-of: wac-hospital
+  - pairs:
+      app.kubernetes.io/part-of: wac-hospital
 
 resources:
-- ../../../apps/xbelake-ambulance-ufe
+  - ../../../apps/xbelake-ambulance-ufe
+
+components:
+  - ../../../components/version-developers
