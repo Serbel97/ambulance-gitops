@@ -7,7 +7,7 @@ spec:
   element: xbelake-ambulance-wl-app
   attributes:
     - name: api-base
-      value: http://localhost:5001cd/api
+      value: http://localhost:5001/api
     - name: ambulance-id
       value: bobulova
   displayRules:
