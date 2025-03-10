@@ -6,6 +6,8 @@ spec:
   microFrontend: xbelake-ambulance-ufe
   element: xbelake-ambulance-wl-app
   attributes:
+    - name: base-path
+      value: /xbelake-ambulance-wl/
     - name: api-base
       value: http://localhost:5001/api
     - name: ambulance-id
