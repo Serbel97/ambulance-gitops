@@ -3,4 +3,4 @@ kind: Component
 images:
   - name: sempresionus/ambulance-ufe
     newName: sempresionus/ambulance-ufe
-    newTag: 1.0.0  # v1. TODO: aktuálna verzia docker obrazu, ktorú chcete aby používatelia - cvičiaci - videli nasadenú
+    newTag: 1.0.1  # TODO: aktuálna verzia docker obrazu, ktorú chcete aby používatelia - cvičiaci - videli nasadenú
