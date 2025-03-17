@@ -8,7 +8,7 @@ spec:
   ref:
     branch: main
   timeout: 1m0s
-  url: https://github.com/Serble97/ambulance-gitops
+  url: https://github.com/Serbel97/ambulance-gitops
 
 # ak používate privátny repozitár nezabudnite doplniť autentifikačné údaje
 # secretRef:
