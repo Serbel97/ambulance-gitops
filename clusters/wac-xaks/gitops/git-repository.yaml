@@ -1,0 +1,15 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: x-gitops-repo  # TODO: xbelake # v spoločnom klastri je nasadených viacero takýchto objektov
+  namespace: wac-hospital
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  timeout: 1m0s
+  url: https://github.com/Serbel97/ambulance-gitops
+
+# ak používate privátny repozitár nezabudnite doplniť autentifikačné údaje
+# secretRef:
+#    name: x-repository-pat # TODO: xbelake

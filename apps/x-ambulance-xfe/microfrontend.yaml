@@ -1,0 +1,8 @@
+apiVersion: polyfea.github.io/v1alpha1
+kind: MicroFrontend
+metadata:
+  name: x-ambulance-xfe
+spec:
+  frontendClass: md-shell # default obsiahnutý v základe polyfea md-shell
+  service: http://x-ambulance-xfe.wac-hospital # referencia na službu odkiaľ sa má načítať modul
+  modulePath: build/ambulance-xfe.esm.js # cesta v rámci služby kde sa modul nachádza
