@@ -4,7 +4,7 @@ metadata:
   name: x-ambulance-xfe-content
 spec:
   microFrontend: x-ambulance-xfe
-  element: x-ambulance-wl-app
+  element: x-ambulance-wl-list
   attributes:
     - name: base-path
       value: /x-ambulance-wl/
