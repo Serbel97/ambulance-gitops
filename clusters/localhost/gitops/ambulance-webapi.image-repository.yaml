@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: ambulance-webapi
+  namespace: wac-hospital
+spec:
+  image: sempresionus/ambulance-wl-webapi
+  interval: 1m0s

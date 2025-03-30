@@ -9,6 +9,14 @@ labels:
 
 resources:
   - ../../../apps/xbelake-ambulance-ufe
+  - ../../../apps/xbelake-ambulance-webapi
+  #- ../../../apps/polyfea-md-shell # TODO:
+
+patches:
+  # - path: patches/material-design.microfrontend.yaml
+  #- path: patches/polyfea-md-shell.microfrontend.yaml
+  - path: patches/ambulance-webapi.service.yaml
 
 components:
   - ../../../components/version-developers
+  - https://github.com/Serbel97/ambulance-webapi//deployments/kustomize/components/mongodb
