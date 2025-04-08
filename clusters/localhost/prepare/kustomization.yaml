@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ../../../infrastructure/polyfea
-  # - ../../../infrastructure/polyfea-controller
   - ../../../infrastructure/fluxcd
+  - ../../../infrastructure/envoy-gateway
 components:
   - ../../../components/version-developers
