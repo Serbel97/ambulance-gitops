@@ -1,0 +1,22 @@
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: mongo-express-ufe-link
+spec:
+  microFrontend: polyfea-md-shell
+  element: polyfea-md-app
+  attributes:
+    - name: headline
+      value: Mongo Express
+    - name: short-headline
+      value: UI Access to local Mongo DB
+    - name: material-icon
+      value: database
+    - name: href
+      value: ./mongo-express
+  priority: 10
+  displayRules:
+    - anyOf:
+        - context-name: applications
+        - context-name: rail-content
+        - context-name: drawer-content

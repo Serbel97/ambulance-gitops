@@ -1,0 +1,18 @@
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: mongo-express-ufe-content
+spec:
+  element: iframe
+  attributes:
+    - name: src
+      value: /mongo-express
+  displayRules:
+    - allOf:
+        - context-name: main-content
+        - path: "^(\\.?/)?mongo-express(/.*)?$"
+  style:
+    - name: width
+      value: 100%
+    - name: height
+      value: 100%
