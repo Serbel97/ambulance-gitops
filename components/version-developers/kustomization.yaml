@@ -6,7 +6,7 @@ images:
     newTag: main.20250317.1149 # {"$imagepolicy": "wac-hospital:ambulance-ufe:tag"}
   - name: sempresionus/ambulance-wl-webapi
     newName: sempresionus/ambulance-wl-webapi # {"$imagepolicy":  "wac-hospital:ambulance-webapi:name"}
-    newTag: main.20250331.1022 # {"$imagepolicy": "wac-hospital:ambulance-webapi:tag"}
+    newTag: main.20250408.1022 # {"$imagepolicy": "wac-hospital:ambulance-webapi:tag"}
 #  - name: sempresionus/ambulance-xfe
 #    newName: sempresionus/ambulance-xfe # {"$imagepolicy":  "wac-hospital:ambulance-xfe:name"}
 #    newTag: main # {"$imagepolicy": "wac-hospital:ambulance-xfe:tag"}
