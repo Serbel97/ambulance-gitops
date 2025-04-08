@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xbelake-ambulance-webapi
+spec:
+  template:
+    spec:
+      containers:
+        - name: openapi-ui
+          env:
+            - name: URL
+              value: /xbelake-openapi
+            - name: BASE_URL
+              value: /xbelake-openapi-ui
