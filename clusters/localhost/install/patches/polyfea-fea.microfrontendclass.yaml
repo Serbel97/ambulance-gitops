@@ -1,0 +1,10 @@
+apiVersion: polyfea.github.io/v1alpha1
+kind: MicroFrontendClass
+metadata:
+  name: fea
+spec:
+  cspHeader: >-
+    default-src 'self'; font-src 'self'; script-src 'strict-dynamic'
+    'nonce-{NONCE_VALUE}'; worker-src 'self'; manifest-src 'self'; style-src
+    'self' 'strict-dynamic' 'nonce-{NONCE_VALUE}'; style-src-attr 'self'
+    'unsafe-inline'; img-src *; connect-src 'self' localhost:30331 localhost:30081;
