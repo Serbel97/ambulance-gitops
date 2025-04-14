@@ -3,7 +3,11 @@ kind: Component
 images:
   - name: sempresionus/ambulance-ufe
     newName: sempresionus/ambulance-ufe
-    newTag: 1.0.1  # TODO: aktuálna verzia docker obrazu, ktorú chcete aby používatelia - cvičiaci - videli nasadenú
+    newTag: 1.1.0  # TODO: aktuálna verzia docker obrazu, ktorú chcete aby používatelia - cvičiaci - videli nasadenú
+  - name: sempresionus/ambulance-wl-webapi
+    newName: sempresionus/ambulance-wl-webapi
+    newTag: 1.1.0
+
 #  - name: sempresionus/ambulance-xfe
 #    newName: sempresionus/ambulance-xfe
 #    newTag: 1.0.1  # TODO: aktuálna verzia docker obrazu, ktorú chcete aby používatelia - cvičiaci - videli nasadenú

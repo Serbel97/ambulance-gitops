@@ -12,7 +12,7 @@ labels:
 
 resources:
   - ../../../apps/xbelake-ambulance-ufe
-
+  - ../../../apps/xbelake-ambulance-webapi
 
 components:
   - ../../../components/version-release
