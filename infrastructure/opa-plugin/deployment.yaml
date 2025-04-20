@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &PODNAME opa-plugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: *PODNAME
+  template:
+    metadata:
+      labels:
+        pod: *PODNAME
+    spec:
+      volumes:
+        - name: opa-policy
+          configMap:
+            name: opa-policy
+        - name: opa-config
+          configMap:
+            name: opa-config
+      containers:
+        - name: *PODNAME
+          image: openpolicyagent/opa:latest-envoy
+          securityContext:
+            runAsUser: 1111
+          volumeMounts:
+            - readOnly: true
+              mountPath: /policy
+              name: opa-policy
+            - readOnly: true
+              mountPath: /config
+              name: opa-config
+          args:
+            - "run"
+            - "--server"
+            - "--config-file=/config/config.yaml"
+            - "--addr=localhost:8181"
+            - "--diagnostic-addr=0.0.0.0:8282"
+            - "--ignore=.*"
+            - "/policy/policy.rego"
+          ports:
+            - containerPort: 8181
+              name: opa-rest
+            - containerPort: 8282
+              name: opa-diag
+            - containerPort: 9191
+              name: envoy-plugin
+          resources:
+            limits:
+              cpu: '0.5'
+              memory: '320M'
+            requests:
+              cpu: '0.01'
+              memory: '128M'
+          livenessProbe:
+            httpGet:
+              path: /health?plugins
+              scheme: HTTP
+              port: 8282
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health?plugins
+              scheme: HTTP
+              port: 8282
+            initialDelaySeconds: 5
+            periodSeconds: 5

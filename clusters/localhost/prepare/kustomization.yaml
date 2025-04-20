@@ -8,6 +8,7 @@ resources:
   - ../../../infrastructure/envoy-gateway
   - ../../../infrastructure/cert-manager
   - ../../../infrastructure/oauth2-proxy
+  - ../../../infrastructure/opa-plugin
 
 components:
   - ../../../components/version-developers

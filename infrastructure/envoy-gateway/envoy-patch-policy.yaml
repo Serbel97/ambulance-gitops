@@ -40,3 +40,18 @@ spec:
                   patterns:
                     - exact: authorization
                     - prefix: x-auth
+    - type: "type.googleapis.com/envoy.config.listener.v3.Listener"
+      name:  wac-hospital/wac-hospital-gateway/fqdn
+      operation:
+        op: add
+        path: "/filter_chains/0/filters/0/typed_config/http_filters/1"
+        value:
+          name: authorization.ext_authz
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+            transport_api_version: V3
+            grpc_service:
+              google_grpc:
+                stat_prefix: opa
+                target_uri: opa-plugin.wac-hospital:9191
+              timeout: 3s
