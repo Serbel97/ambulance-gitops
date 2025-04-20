@@ -5,3 +5,11 @@ resources:
   - https://github.com/envoyproxy/gateway/releases/download/v1.2.8/install.yaml
   - gateway-class.yaml
   - gateway.yaml
+  - envoy-patch-policy.yaml
+
+configMapGenerator:
+  - name: envoy-gateway-config
+    namespace: envoy-gateway-system
+    behavior: replace
+    files:
+      - params/envoy-gateway.yaml

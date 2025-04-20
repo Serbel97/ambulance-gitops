@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &PODNAME oauth2-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: *PODNAME
+  template:
+    metadata:
+      labels:
+        pod: *PODNAME
+    spec:
+      containers:
+        - name: oauth2-proxy
+          image: bitnami/oauth2-proxy
+          args:
+            - --upstream="static://200"
+            - --set-xauthrequest
+            - --set-authorization-header
+            - --silence-ping-logging
+          env:
+            - name: OAUTH2_PROXY_HTTP_ADDRESS
+              # listen on standard interface - localhost will not work
+              value: ":4180"
+
+            - name: OAUTH2_PROXY_PROXY_PREFIX
+              # oauth2-proxy route listens on path /authn
+              value: /authn
+
+            - name: OAUTH2_PROXY_PROVIDER
+              value: github
+
+            - name: OAUTH2_PROXY_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-client
+                  key: client-id
+
+            - name: OAUTH2_PROXY_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-client
+                  key: client-secret
+
+            - name: OAUTH2_PROXY_REDIRECT_URL
+              # must match redirection registered at GitHub Oauth2 Application form
+              value: https://wac-hospital.loc/authn/callback
+
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oidc-client
+                  key: cookie-secret
+
+            - name: OAUTH2_PROXY_SESSION_STORE_TYPE
+              # alternatively use redis and configure it
+              value: cookie
+
+            - name: OAUTH2_PROXY_COOKIE_PREFIX
+              value: __Secure-
+            - name: OAUTH2_PROXY_COOKIE_SAMESITE
+              value: lax
+
+            - name: OAUTH2_PROXY_EMAIL_DOMAINS
+              # only authenticate - we will authorize users later
+              value: "*"
+
+            - name: OAUTH2_PROXY_SKIP_PROVIDER_BUTTON
+              # change to true to skip provider selection page. Here false for    demonstration only
+              value: "false"
+
+            - name: OAUTH2_PROXY_SKIP_AUTH_ROUTES
+              # regex of routes where anonymous users are allowed
+              # either here or create separate gateway/listener for anonymous users
+              value: (\/.well-known\/|\/favicon.ico)
+
+          resources:
+            limits:
+              cpu: '0.2'
+              memory: '320M'
+            requests:
+              cpu: '0.01'
+              memory: '128M'
+          livenessProbe:
+            httpGet:
+              path: /ready
+              scheme: HTTP
+              port: 4180
+            initialDelaySeconds: 5
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /ready
+              scheme: HTTP
+              port: 4180
+            initialDelaySeconds: 5
+            periodSeconds: 5

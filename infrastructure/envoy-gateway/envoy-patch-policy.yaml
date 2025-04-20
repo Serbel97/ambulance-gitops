@@ -1,0 +1,42 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyPatchPolicy
+metadata:
+  name: oauth2-ext-authz
+  namespace: wac-hospital
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: wac-hospital-gateway
+  type: JSONPatch
+  jsonPatches:
+    - type: "type.googleapis.com/envoy.config.listener.v3.Listener"
+      # The listener name is of the form <GatewayNamespace>/<GatewayName>/<GatewayListenerName>
+      name:  wac-hospital/wac-hospital-gateway/fqdn
+      operation:
+        op: add
+        # if there is only single listener per tls endpoint then replace "/filter_chains/0"
+        # with "/default_filter_chain"
+        # use config `egctl config envoy-proxy listener -A` to find out actual xDS configuration
+        path: "/filter_chains/0/filters/0/typed_config/http_filters/0"
+        value:
+          name: authentication.ext_authz
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+            http_service:
+              server_uri:
+                uri: http://oauth2-proxy.wac-hospital
+                timeout: 30s
+                # The cluster name is of the form <RouteType>/<RouteNamespace>/<RouteName>/rule/   <RuleIndex>
+                # use  `egctl config envoy-proxy cluster -A` to find out actual xDS configuration
+                cluster: httproute/wac-hospital/oauth2-proxy/rule/0
+              authorizationRequest:
+                allowedHeaders:
+                  patterns:
+                    - exact: authorization
+                    - exact: cookie
+              authorizationResponse:
+                allowedUpstreamHeaders:
+                  patterns:
+                    - exact: authorization
+                    - prefix: x-auth
