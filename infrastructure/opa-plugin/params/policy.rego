@@ -18,7 +18,7 @@ user := {"valid": valid, "email": email, "name": name} if {
 }
 
 # 3) Which roles may access this path? (as a SET via indexed rule‐heads)
-request_allowed_role["admin"]
+request_allowed_role["admin"] := true
 
 request_allowed_role["monitoring"] if {
     glob.match("/monitoring*", [], http_request.path)
