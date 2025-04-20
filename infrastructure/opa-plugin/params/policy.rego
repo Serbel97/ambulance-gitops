@@ -10,13 +10,14 @@ is_valid_user := true if {
     http_request.headers["x-auth-request-email"]
 }
 
+# 2) Build the user object
 user := {"valid": valid, "email": email, "name": name} if {
     valid := is_valid_user
     email := http_request.headers["x-auth-request-email"]
     name  := http_request.headers["x-auth-request-user"]
 }
 
-# 2) Which roles may access this path? (define a SET)
+# 3) Which roles may access this path? (as a SET via indexed rule‐heads)
 request_allowed_role["admin"]
 
 request_allowed_role["monitoring"] if {
@@ -28,9 +29,9 @@ request_allowed_role["user"] if {
     not glob.match("/http-echo*",    [], http_request.path)
 }
 
-# 3) Which roles does the user have? (define a SET)
+# 4) Which roles does the user have? (as a SET)
 user_role["user"] if {
-    user.valid
+    is_valid_user
 }
 
 user_role["admin"] if {
@@ -39,29 +40,29 @@ user_role["admin"] if {
 }
 
 user_role["admin"] if {
-    user.email == "xbelake@stuba.sk"
+    user.email == "xbelak@stuba.sk"
 }
 
 user_role["monitoring"] if {
     user.email == "erik.belak@gmail.com"
 }
 
-# 4) Action is allowed if there’s any overlap
+# 5) Action is allowed if there's any overlap
 action_allowed if {
     some role
-    role in request_allowed_role
-    role in user_role
+    request_allowed_role[role]    # ← membership test without "in"
+    user_role[role]               # ← ditto
 }
 
-# 5) Final allow decision
+# 6) Final allow decision
 allow if {
-    user.valid
+    is_valid_user
     action_allowed
 }
 
-# 6) Response headers
+# 7) Response headers
 headers["x-validated-by"]      := "opa-checkpoint"
-headers["x-auth-request-roles"] := concat(", ", [ r | r in user_role ])
+headers["x-auth-request-roles"] := concat(", ", [ r | user_role[r] ])
 
-# 7) Output result
+# 8) Export result
 result := {"allowed": allow, "headers": headers}
