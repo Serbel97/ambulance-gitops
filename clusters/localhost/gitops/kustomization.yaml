@@ -8,12 +8,26 @@ labels:
 namespace: wac-hospital
 
 resources:
-- prepare.kustomization.yaml
-- cd.kustomization.yaml
-- install.kustomization.yaml
-- git-repository.yaml
-- ambulance-ufe.image-repository.yaml
-- ambulance-ufe.image-policy.yaml
-- image-update-automation.yaml
-- ambulance-webapi.image-repository.yaml
-- ambulance-webapi.image-policy.yaml
+  - prepare.kustomization.yaml
+  - cd.kustomization.yaml
+  - install.kustomization.yaml
+  - git-repository.yaml
+  - ambulance-ufe.image-repository.yaml
+  - ambulance-ufe.image-policy.yaml
+  - image-update-automation.yaml
+  - ambulance-webapi.image-repository.yaml
+  - ambulance-webapi.image-policy.yaml
+  - secrets.kustomization.yaml
+
+patches:
+  - target:
+      group: kustomize.toolkit.fluxcd.io
+      version: v1
+      kind: Kustomization
+    patch: |-
+      - op: add
+        path: /spec/decryption
+        value:
+          provider: sops
+          secretRef:
+            name: sops-age
