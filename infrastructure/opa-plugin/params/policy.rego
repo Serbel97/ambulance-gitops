@@ -6,7 +6,7 @@ import input.attributes.request.http as http_request
 
 default allow := false
 
-# 1) Auth check
+# 1) Authenticated user?
 is_valid_user := true if {
     http_request.headers["x-auth-request-email"]
 }
@@ -47,14 +47,14 @@ user_role contains "monitoring" if {
     user.email == "erik.belak@gmail.com"
 }
 
-# 4) Intersection = allowed action
+# 4) Allow if there’s at least one role in the intersection
 action_allowed if {
     some role
-    request_allowed_role contains role
-    user_role           contains role
+    role in request_allowed_role
+    role in user_role
 }
 
-# 5) Final allow decision
+# 5) Final decision
 allow if {
     user.valid
     action_allowed
@@ -62,7 +62,7 @@ allow if {
 
 # 6) Response headers
 headers["x-validated-by"]      := "opa-checkpoint"
-headers["x-auth-request-roles"] := concat(", ", [ r | user_role contains r ])
+headers["x-auth-request-roles"] := concat(", ", [ r | r in user_role ])
 
-# 7) Export result
+# 7) Export the result object
 result := {"allowed": allow, "headers": headers}
