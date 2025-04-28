@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - https://github.com/wac-fiit/manifests//observability/gitops?ref=main
+# in case your cluster is too small (e.g. not enough CPU/memory on laptop) you may
+# use following line instead of the above one,
+# to install only open Open*Telemetry Collector with exports into its log stream
+# - https://github.com/wac-fiit/manifests//observability/otel-collector-logging/gitops?ref=main
+
+# if you do not have yet certmanager installed:
+#- https://github.com/wac-fiit/manifests//cert-manager/gitops?ref=main

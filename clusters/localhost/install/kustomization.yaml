@@ -12,6 +12,23 @@ resources:
   - ../../../apps/xbelake-ambulance-webapi
   - ../../../apps/mongo-express
   - ../../../apps/http-echo
+  - ../../../infrastructure/observability
+
+configMapGenerator:
+  - name: deployment-config
+    namespace: observability
+    behavior: merge
+    options:
+      disableNameSuffixHash: true
+    literals:
+      # for development purposes we use always_on sampler,
+      # in production you may want to use parentbased_trace_id_ratio sampler or any other available
+      - OTEL_TRACES_SAMPLER=always_on
+      - LOG_LEVEL=debug
+      - OTEL_TRACES_SAMPLER_RATIO=1.0
+      - OTEL_TRACES_SAMPLER_PERCENTAGE=100
+      # specify different host if `localhost` is not your top level domain name for the cluster
+      - GRAFANA_ROOT_URL=http://localhost/grafana
 
 patches:
   - path: patches/ambulance-webapi.service.yaml
