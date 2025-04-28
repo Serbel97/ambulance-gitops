@@ -7,7 +7,7 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  secretRef:
-    name: repository-pat
+#  secretRef:
+#    name: repository-pat
   timeout: 1m0s
   url: https://github.com/Serbel97/ambulance-gitops
