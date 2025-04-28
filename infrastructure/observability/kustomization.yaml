@@ -9,4 +9,4 @@ resources:
 # - https://github.com/wac-fiit/manifests//observability/otel-collector-logging/gitops?ref=main
 
 # if you do not have yet certmanager installed:
-#- https://github.com/wac-fiit/manifests//cert-manager/gitops?ref=main
+  - https://github.com/wac-fiit/manifests//cert-manager/gitops?ref=main
